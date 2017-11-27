@@ -11,6 +11,8 @@ package Data;
  */
 
 
+import org.json.JSONObject;
+
 /**
  * Bir sınıfın, sistemde bir element olduğunu kanıtlaması kullanılan
  * arabirim.
@@ -38,4 +40,13 @@ public interface IElement {
      *      Sistem kayıtlarında kendi idsini bulursa true döndürür.
      */
     boolean IdControl(String IDs);
+
+    /**
+     * Sistemdeki parçalar sürekli web ile iletişim halinde olacaklar. Bu iletişim sırasında
+     * elementin kendini bir JSON objesine dönüştüme metodudur.
+     *
+     * @return JSONObject
+     *      Sunucuya gönderilmeye hazırlanmış JSON objesi.
+     */
+    JSONObject serialize();
 }

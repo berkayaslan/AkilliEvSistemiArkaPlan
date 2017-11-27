@@ -10,8 +10,8 @@ package Data;
  */
 
 
+import Data.Sensors.Sensor;
 import org.json.JSONObject;
-
 import java.util.LinkedList;
 
 /**
@@ -22,6 +22,9 @@ public class Component implements IElement{
 
     // Componentler dahil sistemdeki tüm cihazların birer ID numarası vardır.
     private String componentId;
+
+    // Component durumu (Çalışıyor/Çalışmıyor)
+    private boolean state;
 
     // Componentin evde bulunduğu yer
     private String location;
@@ -35,10 +38,10 @@ public class Component implements IElement{
     // Componentte bulunan sensörler
     private LinkedList<Sensor> sensors;
 
-    // Component durumu (Çalışıyor/Çalışmıyor)
-    private boolean state;
-
     //MaintainMessage: Yeni tür bir element geldiğinde elementin ebeveyn türünü içeren liste buraya eklenmelidir!
+
+    private LinkedList<LinkedList> elements;
+
 
     /**
      * Component sınıfının dışarıdan erişilemeyen varsayılan oluşturucusu.
@@ -50,14 +53,17 @@ public class Component implements IElement{
     protected Component() {
         switches = new LinkedList<>();
         sensors = new LinkedList<>();
+
+        //elements.add(switches);// Rewiev: NullPointerExeption
+        //elements.add(sensors);
+        //MaintainMessage: Yeni element eklendiğinde buraya da eklenmeli.
     }
 
     /**
      * Component nesnesini sadece id verisi ile oluşturma. Component
      * nesnesine id numarası sadece başlangıçta atanabilir.
      *
-     * @param id
-     *      Component id numarası.
+     * @param id Component id numarası.
      */
     public Component(String id){this();this.componentId = id;}
 
@@ -85,12 +91,20 @@ public class Component implements IElement{
         return true;
     }
 
+    @Override
+    public JSONObject serialize(){
+        // TODO: İletişim sınıfını yazarken sonra yaz.
+        return new JSONObject();
+    }
 
     // Bir Component nesnesinin tüm verileri dışarıdan alınabilir.
     public int getBatteryState(){return this.batteryState;}
     public String getLocation(){return this.location;}
     public LinkedList<Sensor> getSensors(){return this.sensors;}
     public LinkedList<Switch> getSwitches(){return this.switches;}
+    public boolean getState(){return this.state;}
+    public LinkedList<LinkedList> getElements(){return this.elements;}
+
 
     // Bir Component nesnesinin ID değeri hariç tüm değerleri dışarıdan değiştirilebilir.
     public void setLocation(String location){this.location = location;}
@@ -100,4 +114,70 @@ public class Component implements IElement{
     public void setState(boolean state) {this.state = state;}
 
 
+    /**
+     * Component içinde idye göre element araması yapar. Yalnızca componentin içindeki
+     * elementlere bakar.
+     *
+     * @param id Aranılan elementin id değeri
+     * @return istenilen element bulunursa istenilen element. Bulunamazsa null.
+     * @see IElement
+     */
+    public IElement findElement(String id){// Rewiev: NullPointerExeption
+        for (LinkedList list : this.elements) {// Önce element listelerinin içine girilir. (switches, sensors ...)
+            for (Object aElement : list) { // REWIEV: Casting işlemlerinde sıkıntı var. Sorun çıkarsa ilk bakılacak yer.
+                IElement element = (IElement) aElement;
+                if (element.getElementId().equals(id))
+                    return element;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Component içinde idye göre swicth arar. Yalnızca component içindeki switchlere bakar.
+     * findElement() metodundan farkı geriye gerçek bir switch nesnesi döndürmesidir.
+     *
+     * @param id Aranan switch'in id numarası
+     * @return istenilen switch. Eğer yoksa null döndürülür.
+     */
+    public Switch findSwitch(String id){
+        for (Switch aSwitch: this.switches){
+            if (aSwitch.getElementId().equals(id))
+                return aSwitch;
+        }
+        return null;
+    }
+
+
+    /**
+     * Component içinde idye göre sensor arar. Yalnızca component içindeki sensorlere bakar.
+     * findElement() metodundan farkı geriye gerçek bir Sensor nesnesi döndürmesidir.
+     *
+     * @param id Aranılan sensörün id numarası
+     * @return İstenilen sensör. Eğer yoksa null.
+     */
+    public Sensor findSensor(String id){
+        for (Sensor aSensor: sensors){
+            if (aSensor.getElementId().equals(id))
+                return aSensor;
+        }
+        return null;
+    }
+
+    // MaintainMessage: Yeni bir element eklendiğinde buradan find<YeniElement>() metodu oluşturulabilir.
+
+    /**
+     * Componente yeni bir sensör ekleme
+     * @param sensor eklenecek sensör
+     */
+    public void addSensor(Sensor sensor){sensors.add(sensor);}
+
+    /**
+     * Component'e yeni bir switch ekleme
+     * @param _switch eklenecek switch
+     */
+    public void addSwitch(Switch _switch){switches.add(_switch);}
+
+    // MaintainMessage: Yeni bir element eklendiğinde buradan add<YeniElement>() metodu oluşturulabilir.
 }
