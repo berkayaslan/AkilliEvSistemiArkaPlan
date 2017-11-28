@@ -2,13 +2,13 @@ package Data.Sensors;
 
 /**
  * Uludağ Üniversitesi Akıllı Ev Projesi
- * <p>
+ *
  * Copyright (c) 2017.
- * <p>
+ *
  * For more information see the LICENSE file.
- * <p>
  * Berkay Dedeoğlu tarafından oluşturulmuştur. Zaman: 27.11.2017 - 21:51.
  */
+
 public class temperatureSensor  extends Sensor{
 
 
@@ -17,7 +17,10 @@ public class temperatureSensor  extends Sensor{
     }
 
     @Override
-    protected String getUnit() {
+    public String getUnit() {
         return "°C";
     }
+
+    @Override
+    protected SensorTypes getSensorType() {return SensorTypes.TEMPERATURE;}
 }

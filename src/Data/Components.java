@@ -11,6 +11,7 @@ package Data;
  */
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
@@ -42,11 +43,16 @@ public class Components extends LinkedList<Component>{
      * Web üzerinde iletişim kurabilmek için içinde bulunan tüm
      * componentleri JSONObject formatına dönüştüren metod.
      *
-     * @return Tüm componentleri içeren bir JSon objesi.
+     * @return Tüm componentleri içeren bir JSon dizisi.
      */
-    public JSONObject serializeAll(){
-        // TODO: İletişim sınıfı yazıldığında oluştur.
-        return null;
+    public JSONArray serializeAll(){
+        JSONArray allComponents = new JSONArray();
+
+        for (Component aComponent: this){
+            allComponents.put(aComponent.serialize());
+        }
+
+        return allComponents;
     }
 
 

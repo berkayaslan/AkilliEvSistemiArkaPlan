@@ -3,6 +3,9 @@ package Data;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
  * Uludağ Üniversitesi Akıllı Ev Sistemi Projesi
  *
@@ -58,16 +61,16 @@ public class Switch implements IElement {
 
     @Override
     public JSONObject serialize() {
-        JSONObject object = new JSONObject();
+        JSONObject JsonSwitch = new JSONObject();
 
         try {
-            object.put("id", this.getElementId());
-            object.put("durum", this.getState());
+            JsonSwitch.put("durum", this.getState());
+            JsonSwitch.put("id", this.getElementId());
         } catch (JSONException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // REWIEV: Hata düzenlemesi yap
         }
 
-        return object;
+        return JsonSwitch;
     }
 
     public void setState(boolean state) {this.state = state;}

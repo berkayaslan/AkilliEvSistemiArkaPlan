@@ -11,6 +11,8 @@ package Data;
 
 
 import Data.Sensors.Sensor;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.LinkedList;
 
@@ -93,8 +95,29 @@ public class Component implements IElement{
 
     @Override
     public JSONObject serialize(){
-        // TODO: İletişim sınıfını yazarken sonra yaz.
-        return new JSONObject();
+        JSONObject JsonComponent = new JSONObject();
+        JSONArray switchArray = new JSONArray();
+        JSONArray sensorArray = new JSONArray();
+
+        try {
+            JsonComponent.put("id", this.getElementId());
+            JsonComponent.put("yer", this.getLocation());
+            JsonComponent.put("batarya", this.getBatteryState());
+
+            for (Switch aSwitch: this.switches){
+                switchArray.put(aSwitch.serialize());
+            }
+            for (Sensor aSensor: this.sensors){
+                sensorArray.put(aSensor.serialize());
+            }
+
+            JsonComponent.put("anahtarlar", switchArray);
+            JsonComponent.put("sensorler", sensorArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return JsonComponent;
     }
 
     // Bir Component nesnesinin tüm verileri dışarıdan alınabilir.
