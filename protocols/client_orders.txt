@@ -1,0 +1,10 @@
+# İstemci tarafından sunucuya gönderilen emirlerdir.
+# Sistemin diğre tarafına iletilmelidir.
+
+=====Anahtar Durumu ========
+__KEY__ = "anahtar_durumu_degistir"
+__VALUE__ = '{"durum":true,"id":"aSfe34"}'
+============================
+
+
+# İlerde başka veriler de gönderilebilir.

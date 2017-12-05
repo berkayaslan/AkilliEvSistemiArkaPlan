@@ -1,0 +1,28 @@
+# İstemci tarafından sunucuya gönderilen SORGULAR.
+# Karşılığında mutlaka cevap beklenir!!!
+
+
+======Acil Durum========
+__SORGU__ = "acil_durum"
+__MESAJ__ = "acil_durum"
+========================
+
+
+======Anahtar Durumu====
+__SORGU__ = "anahtar_durumu"
+__MESAJ__ = "[{"id": "145Gh", "durum":false},{"id":"An34Vf", "durum": true}]  # Sorduğum anahtarların idleri 
+========================
+
+
+=====Tüm Veriler========
+__SORGU__ = "tum_bilesenler"
+__MESAJ__ = "tum_bilesenler"
+========================
+
+
+====Pil Durumları======
+=======================
+
+===Sensor Surumu=======
+=======================
+ 

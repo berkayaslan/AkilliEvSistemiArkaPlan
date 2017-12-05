@@ -1,0 +1,28 @@
+# Sunucu tarafından istemciye gönderilen
+# mesajlar.
+
+==========Acil Durum========
+Acil durum varsa:
+	__KEY__  = "acil_durum"
+	__MESAJ__  = "{"sebep" : "", "yer": ""}  # Sebepleri kararlaştırmamız gerek 
+	
+Acil durum yoksa:
+	__KEY__ = acil_durum"
+	__MESAJ__ = ""
+============================
+
+
+=========Anahtar Durumu=======
+__KEY__   = "anahtar_durumu"
+__MESAJ__ = "[{"id": "15Ghd", "durum": 1}, {"id": "gHr84d", "durum": 0}]  # değişen anahtarların listesi!
+==============================
+
+
+========Tüm Veriler===========
+__KEY__  = "tum_bilesenler"
+__MESAJ__ =  --bkz ./tum_veriler.json--
+==============================
+
+
+
+

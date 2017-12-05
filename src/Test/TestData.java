@@ -45,5 +45,7 @@ public class TestData {
         comp_3.addSensor(sens);
 
         System.out.println(components.serializeAll());
+
+        System.out.println(new Switch("denm", true).serialize());
     }
 }

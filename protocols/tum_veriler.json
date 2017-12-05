@@ -1,0 +1,27 @@
+[
+	{
+		"yer":"mutfak",
+		"batarya":25,
+		"anahtarlar":[],
+		"id":"component_1",
+		"sensorler":[]
+	},
+	
+	{
+		"yer":"yatak_odasi",
+		"batarya":100,
+		"anahtarlar":[{"durum":true,"id":"switch_1"},{"durum":false,"id":"switch_2"}],
+		"id":"component_2",
+		"sensorler":[]
+	},
+	
+	{
+		"yer":"koridor",
+		"batarya":82,
+		"anahtarlar":[{"durum":false,"id":"switch_3"}],
+		"id":"component_3",
+		"sensorler":[{"deger":21,"tip":"sicaklik","id":"sensor_1"}]
+	}
+]
+
+
