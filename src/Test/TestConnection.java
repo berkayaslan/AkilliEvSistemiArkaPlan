@@ -1,13 +1,7 @@
 package Test;
 
-import ConnectionHelper.SocketCommunicationHelper;
-import ConnectionHelper.EmergencyAsker;
-import ConnectionHelper.ICommunicationUser;
-import ConnectionHelper.SwitchStateAsker;
+import ConnectionHelper.*;
 import Data.Switch;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Uludağ Üniversitesi Akıllı Ev Projesi
@@ -27,31 +21,63 @@ public class TestConnection implements ICommunicationUser{
         ICommunicationUser user = new TestConnection();
         EmergencyAsker eA = new EmergencyAsker(user);
         SwitchStateAsker sSa = new SwitchStateAsker(user);
-        Switch s = new Switch("2D3dgr");
-        Switch s2 = new Switch("21Khgr");
+        AllComponentsAsker aca = new AllComponentsAsker(user);
+        Switch s = new Switch("15Ghd");
+        Switch s2 = new Switch("gHr84d");
         sSa.addTrackingSwitch(s);
-        sSa.addTrackingSwitch(s2);
+        // sSa.addTrackingSwitch(s2);
         int i = 0;
+        s2.setState(false);
+        connection.sendSwitchState(s2);
 
         while (i<3){
             try {
-                Thread.sleep(1600);
-                connection.ask(eA);
+                Thread.sleep(1500);
+                // connection.ask(eA);
                 connection.ask(sSa);
 
-                i ++;
                 System.out.println("Mesaj sayısı + " + i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            i++;
         }
 
-        connection.closeSocket();
+        try {
+            connection.sendSwitchState(s);
+            System.out.println("Anahtar durumu değişimi sunucuya yollandı!!");
+            Thread.sleep(1900);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+        i=0;
+
+        while (i<3){
+            try {
+                Thread.sleep(1500);
+                //connection.ask(eA);
+                connection.ask(sSa);
+
+                System.out.println("Mesaj sayısı + " + i);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                System.out.println("hata");
+            }
+            i ++;
+        }
+
+        connection.ask(aca);
+        // connection.ask(eA); // TODO: Cevap gelmeden kapatm
     }
 
     @Override
     public void doOnAnswer(String title, String message) {
-        System.out.println(title);
+
+        if (message != "[]"){
+            System.out.println(title);
+            System.out.println(message);
+        }
     }
 }

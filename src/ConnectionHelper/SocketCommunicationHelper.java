@@ -41,8 +41,6 @@ public class SocketCommunicationHelper {
         try {
             socket = IO.socket(url);
             socket.connect();
-            // socket.emit("Title", "Emre");
-            // System.out.println("Emitlendi");
             startTime = (System.currentTimeMillis() / 1000);
         } catch (URISyntaxException e) {
             System.out.println("Hata!!!");
@@ -58,8 +56,8 @@ public class SocketCommunicationHelper {
     public void ask(ITask communication){
         // TODO: Static ile bir kere geldiklerinden emin ol
         Emitter.Listener tempListener = args -> {
-            communication.onAnswer((String) args[0]); // Review: Gelen veri str olmayabilir. Hata yakala.
-            // socket.off(communication.getAskMessages()[0]);
+            communication.onAnswer(args[0].toString()); // Review: Gelen veri str olmayabilir. Hata yakala.
+            socket.off(communication.getAskMessages()[0]);
         };
 
         socket.once(communication.getAskMessages()[0], tempListener); // Review: Gerçekten kaldırılıyor mu kontrol et.
@@ -76,6 +74,6 @@ public class SocketCommunicationHelper {
     }
 
     public void sendSwitchState(Switch aSwitch){
-        socket.emit("anahtar_durumu_degistir", aSwitch.serialize());
+        socket.emit("anahtar_durumu_degistir", aSwitch.serialize().toString());
     }
 }

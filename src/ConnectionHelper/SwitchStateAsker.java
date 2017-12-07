@@ -22,10 +22,18 @@ public class SwitchStateAsker implements ITask{
     private JSONArray jtrackingSwitches;
     private LinkedList<Switch> trackingSwitches;
     private ICommunicationUser communicationUser;
+    private JSONObject JSwitches;
 
     private SwitchStateAsker(){
+
         this.jtrackingSwitches = new JSONArray();
         this.trackingSwitches = new LinkedList<>();
+        this.JSwitches = new JSONObject();
+        try {
+            this.JSwitches.put("anahtarlar", jtrackingSwitches);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public SwitchStateAsker(ICommunicationUser user){
@@ -41,7 +49,18 @@ public class SwitchStateAsker implements ITask{
 
     @Override
     public String[] getAskMessages() {
-        COMM_MESSAGE = jtrackingSwitches.toString();
+        jtrackingSwitches = new JSONArray();
+        for (Switch aSwitch :trackingSwitches){
+            jtrackingSwitches.put(aSwitch.serialize());
+        }
+
+        try {
+            this.JSwitches.put("anahtarlar", jtrackingSwitches);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        COMM_MESSAGE = JSwitches.toString();
         return new String[]{this.COMM_KEY, this.COMM_MESSAGE};
     }
 
@@ -49,7 +68,8 @@ public class SwitchStateAsker implements ITask{
     public void onAnswer(String answer) {
         LinkedList<String> changedSwitchesIds = new LinkedList<>();
         try {
-            JSONArray incomingSwitches = new JSONArray(answer);
+            JSONObject JAnswer = new JSONObject(answer);
+            JSONArray incomingSwitches = new JSONArray(JAnswer.get("anahtarlar").toString());
             int size = incomingSwitches.length();
 
             for (int i=0;i<size;i++){
@@ -69,13 +89,13 @@ public class SwitchStateAsker implements ITask{
 
     public void addTrackingSwitch(Switch aSwitch){
         trackingSwitches.add(aSwitch);
-        jtrackingSwitches.put(aSwitch.getElementId());
+        // jtrackingSwitches.put(aSwitch.serialize());
     }
 
     public void addTrackingSwitches(Switch[] switches){
         for (Switch aSwitch: switches){
             trackingSwitches.add(aSwitch);
-            jtrackingSwitches.put(aSwitch.getElementId());
+            // jtrackingSwitches.put(aSwitch.serialize());
         }
     }
 

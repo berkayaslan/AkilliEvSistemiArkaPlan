@@ -53,7 +53,4 @@ public class EmergencyAsker implements ITask {
         catch (JSONException e) {e.printStackTrace();}
         return null;
     }
-
-
-
 }

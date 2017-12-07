@@ -27,6 +27,6 @@ public class AllComponentsAsker implements ITask{
     @Override
     public void onAnswer(String answer) {
         // TODO: Builder yaz
-        user.doOnAnswer("smt", "smt");
+        user.doOnAnswer("smt", answer);
     }
 }
