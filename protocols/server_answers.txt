@@ -7,14 +7,14 @@ Acil durum varsa:
 	__MESAJ__  = "{"sebep" : "", "yer": ""}  # Sebepleri kararlaştırmamız gerek 
 	
 Acil durum yoksa:
-	__KEY__ = acil_durum"
+	__KEY__ = "acil_durum"
 	__MESAJ__ = ""
 ============================
 
 
 =========Anahtar Durumu=======
 __KEY__   = "anahtar_durumu"
-__MESAJ__ = "[{"id": "15Ghd", "durum": 1}, {"id": "gHr84d", "durum": 0}]  # değişen anahtarların listesi!
+__MESAJ__ = "{"anahtarlar":[{"id": "15Ghd", "durum": true}, {"id": "gHr84d", "durum": false}]}"  # değişen anahtarların listesi!
 ==============================
 
 
