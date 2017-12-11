@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -16,7 +17,7 @@ import java.util.LinkedList;
  * <p>
  * Berkay Dedeoğlu tarafından oluşturulmuştur. Zaman: 02.12.2017 - 10:24.
  */
-public class SwitchStateAsker implements ITask{
+public class SwitchStateAsker implements Askable {
     private final String COMM_KEY = "anahtar_durumu";
     private String COMM_MESSAGE;
     private JSONArray jtrackingSwitches;
@@ -81,7 +82,7 @@ public class SwitchStateAsker implements ITask{
                 }
             }
 
-            communicationUser.doOnAnswer("Durum Değişimi", changedSwitchesIds.toString());
+            communicationUser.doOnAnswer(COMM_KEY, changedSwitchesIds.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -93,10 +94,7 @@ public class SwitchStateAsker implements ITask{
     }
 
     public void addTrackingSwitches(Switch[] switches){
-        for (Switch aSwitch: switches){
-            trackingSwitches.add(aSwitch);
-            // jtrackingSwitches.put(aSwitch.serialize());
-        }
+        Collections.addAll(trackingSwitches, switches);
     }
 
     private Switch findSwitch(String id){

@@ -9,10 +9,10 @@ package Data.Sensors;
  * Berkay Dedeoğlu tarafından oluşturulmuştur. Zaman: 27.11.2017 - 21:51.
  */
 
-public class temperatureSensor  extends Sensor{
+public class TemperatureSensor extends Sensor{
 
 
-    public temperatureSensor(String id) {
+    public TemperatureSensor(String id) {
         super(id);
     }
 

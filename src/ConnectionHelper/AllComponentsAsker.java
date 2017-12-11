@@ -10,7 +10,7 @@ package ConnectionHelper;
  * Berkay Dedeoğlu tarafından oluşturulmuştur. Zaman: 05.12.2017 - 17:46.
  */
 
-public class AllComponentsAsker implements ITask{
+public class AllComponentsAsker implements Askable {
     private final String COMM_KEY = "tum_bilesenler";
     private final String COMM_MESSAGE = "tum_bilesenler"; // Review: Kullanıcı id olabilir.
     private ICommunicationUser user;
@@ -27,6 +27,6 @@ public class AllComponentsAsker implements ITask{
     @Override
     public void onAnswer(String answer) {
         // TODO: Builder yaz
-        user.doOnAnswer("smt", answer);
+        user.doOnAnswer("all_components", answer);
     }
 }

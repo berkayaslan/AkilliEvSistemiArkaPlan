@@ -53,6 +53,10 @@ public class Switch implements IElement {
         this.state = state;
     }
 
+    public Switch(JSONObject JSwitch){
+        this.build(JSwitch);
+    }
+
     @Override
     public String getElementId() {return elementId;}
 
@@ -76,4 +80,13 @@ public class Switch implements IElement {
     public void setState(boolean state) {this.state = state;}
 
     public boolean getState() {return state;}
+
+    private void build(JSONObject serialized){
+        try {
+            this.elementId = serialized.getString("id");
+            this.state = serialized.getBoolean("durum");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

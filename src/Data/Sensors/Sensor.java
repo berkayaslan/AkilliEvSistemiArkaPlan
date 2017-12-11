@@ -25,7 +25,7 @@ public abstract class Sensor implements IElement {
     private String elementId;
 
     // Sensörün ölçüp geri döndürdüğü değer
-    private int value;
+    private double value;
 
     public Sensor(String id){
         this.elementId = id;
@@ -67,7 +67,30 @@ public abstract class Sensor implements IElement {
      */
     protected abstract SensorTypes  getSensorType();
 
-    public int getValue() {return value;}
+    public double getValue() {return value;}
 
-    public void setValue(int value) {this.value = value;}
+    public void setValue(double value) {this.value = value;}
+
+    public static Sensor buildSensorFromJson(JSONObject JSensor){
+        String type = SensorTypes.TEMPERATURE.getValueInWeb();
+        String id = "unknown";
+        double value = 1 ;
+        Sensor sensor;
+
+        try {
+            id = JSensor.getString("id");
+            value = JSensor.getDouble("deger");
+            type = JSensor.getString("tip");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (type.equals(SensorTypes.TEMPERATURE.getValueInWeb())){
+            sensor = new TemperatureSensor(id);
+            sensor.value = value;
+            return sensor;
+        }
+        return null;
+    }
 }

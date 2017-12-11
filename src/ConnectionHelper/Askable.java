@@ -9,7 +9,7 @@ package ConnectionHelper;
  * <p>
  * Berkay Dedeoğlu tarafından oluşturulmuştur. Zaman: 30.11.2017 - 04:40.
  */
-interface ITask {
+interface Askable {
     String[] getAskMessages();
     void onAnswer(String answer); // Review: Private olursa çok daha iyi olur.
 }

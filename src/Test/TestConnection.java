@@ -1,7 +1,8 @@
 package Test;
 
 import ConnectionHelper.*;
-import Data.Switch;
+
+import java.util.Objects;
 
 /**
  * Uludağ Üniversitesi Akıllı Ev Projesi
@@ -17,8 +18,9 @@ public class TestConnection implements ICommunicationUser{
         System.out.println("Hello from TestConnection");
 
         SocketCommunicationHelper connection = new SocketCommunicationHelper("https://akilli-ev.herokuapp.com/");
-
         ICommunicationUser user = new TestConnection();
+/*
+
         EmergencyAsker eA = new EmergencyAsker(user);
         SwitchStateAsker sSa = new SwitchStateAsker(user);
         AllComponentsAsker aca = new AllComponentsAsker(user);
@@ -36,7 +38,6 @@ public class TestConnection implements ICommunicationUser{
                 // connection.ask(eA);
                 connection.ask(sSa);
 
-                System.out.println("Mesaj sayısı + " + i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -45,7 +46,6 @@ public class TestConnection implements ICommunicationUser{
 
         try {
             connection.sendSwitchState(s);
-            System.out.println("Anahtar durumu değişimi sunucuya yollandı!!");
             Thread.sleep(1900);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -59,23 +59,68 @@ public class TestConnection implements ICommunicationUser{
                 //connection.ask(eA);
                 connection.ask(sSa);
 
-                System.out.println("Mesaj sayısı + " + i);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                System.out.println("hata");
             }
             i ++;
         }
 
         connection.ask(aca);
         // connection.ask(eA); // TODO: Cevap gelmeden kapatm
+    */
+    /*
+        ICommunicationUser user = new TestConnection();
+        SensorStateAsker sSA = new SensorStateAsker(user);
+        Sensor s1 = new TemperatureSensor("sensor_1");
+        sSA.addSensor(s1, 60);
+        connection.ask(sSA);
+
+        Switch s = new Switch("15Ghd");
+        SwitchStateAsker ssA = new SwitchStateAsker(user);
+        ssA.addTrackingSwitch(s);
+
+        connection.ask(ssA);
+
+        for (int i = 0; i<2; i++) {
+            if (i%2 == 0)
+                s.setState(true);
+            else
+                s.setState(false);
+
+            connection.sendSwitchState(s);
+            //System.out.println("Gönderildi");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        connection.ask(ssA);
+        EmergencyAsker eA = new EmergencyAsker(user);
+        while (true) {
+
+            connection.ask(eA);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }*/
+
+        AllComponentsAsker aCA = new AllComponentsAsker(user);
+        connection.ask(aCA);
     }
+
+
+
 
     @Override
     public void doOnAnswer(String title, String message) {
 
-        if (message != "[]"){
+        if (!Objects.equals(message, "[]")){
             System.out.println(title);
             System.out.println(message);
         }

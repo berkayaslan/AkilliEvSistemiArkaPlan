@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AkıllıEvSistemi-BackSide.iml" filepath="$PROJECT_DIR$/AkıllıEvSistemi-BackSide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AkilliEvBack.iml" filepath="$PROJECT_DIR$/AkilliEvBack.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AkilliEvBack:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AkilliEvBack_jar</output-path>
+    <root id="archive" name="AkilliEvBack.jar">
+      <element id="module-output" name="AkilliEvBack" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/nkzawa/socket.io-client/0.6.0/socket.io-client-0.6.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/nkzawa/engine.io-client/0.6.0/engine.io-client-0.6.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/squareup/okhttp/okhttp-ws/2.4.0/okhttp-ws-2.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/squareup/okhttp/okhttp/2.4.0/okhttp-2.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/squareup/okio/okio/1.4.0/okio-1.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20090211/json-20090211.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

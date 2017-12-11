@@ -12,7 +12,7 @@ import org.json.JSONObject;
  * <p>
  * Berkay Dedeoğlu tarafından oluşturulmuştur. Zaman: 30.11.2017 - 05:43.
  */
-public class EmergencyAsker implements ITask {
+public class EmergencyAsker implements Askable {
     private final String COMM_KEY = "acil_durum";
     private final String COMM_MESSAGE = "acil_durum";
     private ICommunicationUser user;
@@ -43,8 +43,8 @@ public class EmergencyAsker implements ITask {
         String location;
         try {
             JSONObject jAnswer = new JSONObject(sAnswer);
-            reason = (String) jAnswer.get("sebep");
-            location = (String) jAnswer.get("yer");
+            reason = jAnswer.get("sebep").toString();
+            location =  jAnswer.get("yer").toString();
 
             // TODO: Sebep ve yer bilgisini Enumlar ile title ve message bilgisine çevir.
 

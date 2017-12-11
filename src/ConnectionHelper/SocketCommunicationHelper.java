@@ -53,16 +53,17 @@ public class SocketCommunicationHelper {
         socket.disconnect();
     }
 
-    public void ask(ITask communication){
+    public void ask(Askable communication){
         // TODO: Static ile bir kere geldiklerinden emin ol
+        String[] messages = communication.getAskMessages();
         Emitter.Listener tempListener = args -> {
-            communication.onAnswer(args[0].toString()); // Review: Gelen veri str olmayabilir. Hata yakala.
-            socket.off(communication.getAskMessages()[0]);
+            communication.onAnswer(args[0].toString());
+            socket.off(messages[0]);
         };
 
-        socket.once(communication.getAskMessages()[0], tempListener); // Review: Gerçekten kaldırılıyor mu kontrol et.
+        socket.once(messages[0], tempListener); // Review: Gerçekten kaldırılıyor mu kontrol et.
 
-        socket.emit(communication.getAskMessages()[0], communication.getAskMessages()[1]);
+        socket.emit(messages[0], messages[1]);
     }
 
     public void send(String key, String value){
@@ -73,7 +74,7 @@ public class SocketCommunicationHelper {
         socket.emit(key, value);
     }
 
-    public void sendSwitchState(Switch aSwitch){
+    public void sendSwitchState(Switch aSwitch) {
         socket.emit("anahtar_durumu_degistir", aSwitch.serialize().toString());
     }
 }

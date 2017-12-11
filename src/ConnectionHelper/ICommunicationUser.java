@@ -10,5 +10,5 @@ package ConnectionHelper;
  * Berkay Dedeoğlu tarafından oluşturulmuştur. Zaman: 30.11.2017 - 05:46.
  */
 public interface ICommunicationUser {
-    void doOnAnswer(String title, String message);
+    void doOnAnswer(String key, String message);
 }

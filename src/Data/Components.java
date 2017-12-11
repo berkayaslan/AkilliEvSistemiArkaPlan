@@ -11,7 +11,9 @@ package Data;
  */
 
 
+import Data.Sensors.Sensor;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
@@ -23,6 +25,12 @@ import java.util.LinkedList;
  * @see LinkedList
  */
 public class Components extends LinkedList<Component>{
+
+    public Components(){}
+
+    public Components(JSONObject JComponents){
+        this.buildAll(JComponents);
+    }
 
     /**
      * Id numarasına göre tüm componentler arasından istenilen component nesnesini
@@ -39,20 +47,59 @@ public class Components extends LinkedList<Component>{
         return null;
     }
 
+    public Switch findSwitch(String id){
+        for (Component component: this){
+            for (Switch aSwitch: component.getSwitches()){
+                if (aSwitch.getElementId().equals(id))
+                    return aSwitch;
+            }
+        }
+        return null;
+    }
+
+    public Sensor findSensor(String id){
+        for (Component component: this){
+            for (Sensor sensor: component.getSensors()){
+                if (sensor.getElementId().equals(id))
+                    return sensor;
+            }
+        }
+        return null;
+    }
+
     /**
      * Web üzerinde iletişim kurabilmek için içinde bulunan tüm
      * componentleri JSONObject formatına dönüştüren metod.
      *
      * @return Tüm componentleri içeren bir JSon dizisi.
      */
-    public JSONArray serializeAll(){
+    public JSONObject serializeAll(){
+        JSONObject allComponentsObj = new JSONObject();
         JSONArray allComponents = new JSONArray();
 
         for (Component aComponent: this){
             allComponents.put(aComponent.serialize());
         }
 
-        return allComponents;
+        try {
+            allComponentsObj.put("tumVeriler", allComponents);
+            return allComponentsObj;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void buildAll(JSONObject serialized){
+
+        try {
+            JSONArray JComponents = serialized.getJSONArray("tumVeriler");
+            for (int i=0; i<JComponents.length();i++){
+                this.add(new Component(JComponents.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 

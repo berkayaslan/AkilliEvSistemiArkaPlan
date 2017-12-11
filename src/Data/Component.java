@@ -78,7 +78,7 @@ public class Component implements IElement{
      */
     public Component(JSONObject JsonComponent){
         this();
-        //TODO: inner class ya da metod ile parse işlemini gerçekleştir.
+        build(JsonComponent);
     }
 
 
@@ -118,6 +118,29 @@ public class Component implements IElement{
         }
 
         return JsonComponent;
+    }
+
+    private void build(JSONObject serialized) {
+
+        try {
+            this.componentId = serialized.get("id").toString();
+            this.location = serialized.get("yer").toString();
+            this.batteryState = new Integer(serialized.get("batarya").toString());
+            JSONArray JAnahtarlar = serialized.getJSONArray("anahtarlar");
+            for (int i = 0; i<JAnahtarlar.length();i++){
+                Switch aSwitch = new Switch(JAnahtarlar.getJSONObject(i));
+                this.switches.add(aSwitch);
+            }
+
+            JSONArray JSensor = serialized.getJSONArray("sensorler");
+            for (int i = 0; i<JSensor.length();i++){
+                Sensor aSensor = Sensor.buildSensorFromJson(JSensor.getJSONObject(i));
+                this.sensors.add(aSensor);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     // Bir Component nesnesinin tüm verileri dışarıdan alınabilir.
