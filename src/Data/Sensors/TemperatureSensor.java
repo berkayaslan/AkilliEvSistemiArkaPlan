@@ -22,5 +22,5 @@ public class TemperatureSensor extends Sensor{
     }
 
     @Override
-    protected SensorTypes getSensorType() {return SensorTypes.TEMPERATURE;}
+    public SensorTypes getSensorType() {return SensorTypes.TEMPERATURE;}
 }

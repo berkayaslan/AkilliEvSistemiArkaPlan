@@ -12,6 +12,8 @@ package Data;
 
 
 import Data.Sensors.Sensor;
+import Data.Sensors.SensorTypes;
+import com.sun.istack.internal.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,6 +102,35 @@ public class Components extends LinkedList<Component>{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public LinkedList<Switch> getAllSwitches(){
+        LinkedList<Switch> allSwitches = new LinkedList<>();
+        for (Component component: this){
+            allSwitches.addAll(component.getSwitches());
+        }
+        return allSwitches;
+    }
+
+    public LinkedList<Sensor> getAllSensors(@Nullable SensorTypes type){
+        LinkedList<Sensor> allSensors = new LinkedList<>();
+        if (type == null){
+            for (Component component: this)
+                allSensors.addAll(component.getSensors());
+
+        }else{
+            for (Component component :this){
+                LinkedList<Sensor> tempList = new LinkedList<>();
+                tempList.addAll(component.getSensors());
+                for (Sensor sensor: tempList){
+                    if(sensor.getSensorType() == type)
+                        allSensors.add(sensor);
+
+                }
+            }
+        }
+
+        return allSensors;
     }
 
 

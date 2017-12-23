@@ -61,7 +61,7 @@ public class SocketCommunicationHelper {
             socket.off(messages[0]);
         };
 
-        socket.once(messages[0], tempListener); // Review: Gerçekten kaldırılıyor mu kontrol et.
+        socket.once(messages[0], tempListener); // Review: Gerçekten kaldırılıyor mu kontrol et."
 
         socket.emit(messages[0], messages[1]);
     }

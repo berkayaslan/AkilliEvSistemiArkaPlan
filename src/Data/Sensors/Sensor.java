@@ -65,7 +65,7 @@ public abstract class Sensor implements IElement {
      *
      * @return sensörün tipi.
      */
-    protected abstract SensorTypes  getSensorType();
+    public abstract SensorTypes  getSensorType();
 
     public double getValue() {return value;}
 

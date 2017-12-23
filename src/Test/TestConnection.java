@@ -1,6 +1,7 @@
 package Test;
 
 import ConnectionHelper.*;
+import Data.Switch;
 
 import java.util.Objects;
 
@@ -112,6 +113,10 @@ public class TestConnection implements ICommunicationUser{
 
         AllComponentsAsker aCA = new AllComponentsAsker(user);
         connection.ask(aCA);
+
+        Switch s = new Switch("15Ghd", true);
+        connection.sendSwitchState(s);
+        System.out.println("gönderildi");
     }
 
 

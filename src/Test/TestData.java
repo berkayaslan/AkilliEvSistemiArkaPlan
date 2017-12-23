@@ -3,6 +3,7 @@ package Test;
 import Data.Component;
 import Data.Components;
 import Data.Sensors.Sensor;
+import Data.Sensors.SensorTypes;
 import Data.Sensors.TemperatureSensor;
 import Data.Switch;
 
@@ -56,5 +57,8 @@ public class TestData {
         }
 
         System.out.println(components2.findSwitch("15Ghd").serialize());
+        System.out.println(components2.getAllSwitches());
+        System.out.println(components.getAllSensors(null));
+        System.out.println(components2.getAllSensors(SensorTypes.TEMPERATURE));
     }
 }

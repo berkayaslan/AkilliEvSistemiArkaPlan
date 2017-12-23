@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -43,7 +44,7 @@ public class SwitchStateAsker implements Askable {
 
     }
 
-    public SwitchStateAsker(Switch[] switches, ICommunicationUser user){
+    public SwitchStateAsker(LinkedList<Switch> switches, ICommunicationUser user){
         this(user);
         addTrackingSwitches(switches);
     }
@@ -82,19 +83,37 @@ public class SwitchStateAsker implements Askable {
                 }
             }
 
-            communicationUser.doOnAnswer(COMM_KEY, changedSwitchesIds.toString());
+            if (changedSwitchesIds.size()>0)
+                communicationUser.doOnAnswer(COMM_KEY, changedSwitchesIds.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    public  Switch[] parseChangedSwitches(String changedSwitches){
+        String temp = changedSwitches.replace("[", "");
+        temp = temp.replace("]", "");
+        String[] changedSwitchId = temp.split(",");
+
+        Switch[] changedSwitchesArr = new Switch[changedSwitchId.length];
+        for (int i=0; i<changedSwitchId.length;i++){
+            changedSwitchesArr[i] = this.findSwitch(changedSwitchId[i]);
+        }
+
+        return changedSwitchesArr;
+    }
+
     public void addTrackingSwitch(Switch aSwitch){
-        trackingSwitches.add(aSwitch);
+        if (findSwitch(aSwitch.getElementId())==null)
+            trackingSwitches.add(aSwitch);
         // jtrackingSwitches.put(aSwitch.serialize());
     }
 
-    public void addTrackingSwitches(Switch[] switches){
-        Collections.addAll(trackingSwitches, switches);
+    public void addTrackingSwitches(LinkedList<Switch> switches){
+        for (Switch aSwitch:switches) {
+            if (findSwitch(aSwitch.getElementId()) == null)
+                trackingSwitches.add(aSwitch);
+        }
     }
 
     private Switch findSwitch(String id){
